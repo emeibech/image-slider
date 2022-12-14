@@ -19,4 +19,5 @@
     height: 720px;
     width: 1280px;
     background-color: white;
+    overflow: hidden;
 }
