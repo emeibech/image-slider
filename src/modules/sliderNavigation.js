@@ -1,5 +1,5 @@
-import leftArrowSRC from '../images/navigation/arrow-left.svg';
-import rightArrowSRC from '../images/navigation/arrow-right.svg';
+import leftArrowSource from '../images/navigation/arrow-left.svg';
+import rightArrowSource from '../images/navigation/arrow-right.svg';
 
 export const navigationArrows = () => {
     const imageContainer = document.querySelector('.image-container');
@@ -9,8 +9,8 @@ export const navigationArrows = () => {
     const rightArrow = document.createElement('img');
     leftArrowContainer.classList.add('left-arrow');
     rightArrowContainer.classList.add('right-arrow');
-    leftArrow.src = leftArrowSRC;
-    rightArrow.src = rightArrowSRC;
+    leftArrow.src = leftArrowSource;
+    rightArrow.src = rightArrowSource;
 
     leftArrowContainer.appendChild(leftArrow);
     rightArrowContainer.appendChild(rightArrow);
