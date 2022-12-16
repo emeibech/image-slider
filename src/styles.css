@@ -15,7 +15,7 @@
     place-items: center;
 }
 
-.image-container {
+.image-slider {
     height: 720px;
     width: 1280px;
     background-color: white;
@@ -24,25 +24,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: background-image 500ms ease-in-out;
+    /* border: 1px solid sandybrown; */
 }
 
 .left-arrow,
 .right-arrow {
     background-color: rgba(240, 240, 240, 0.5);
-    padding: 1rem;
+    padding: 0.75rem;
     cursor: pointer;
-    margin: 1rem;
+    margin: 0.75rem;
     border-radius: 3rem;
-    opacity: 0.8;
+    opacity: 0.7;
     z-index: 1;
 }
 
 .left-arrow:hover,
 .right-arrow:hover {
-    opacity: 0.9;
+    opacity: 1;
 }
 
-.image-container > img {
+.image-container {
     position: absolute;
+    display: flex;
 }
+
+/* .image-container > img {
+    transform: translateX(-10%);
+} */
+
+
