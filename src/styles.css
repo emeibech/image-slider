@@ -45,11 +45,15 @@
 
 .image-container {
     position: absolute;
+    z-index: 0;
     display: flex;
 }
 
-/* .image-container > img {
-    transform: translateX(-10%);
-} */
+.image-container > img {
+    translate: 0%;
+    transition: translate 500ms ease-in-out;
+}
 
-
+.image-container .animate-right {
+    translate: -100%;
+}
