@@ -57,3 +57,28 @@
 .image-container .animate-right {
     translate: -100%;
 }
+
+.navigation-dots {
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    align-self: end;
+    display: flex;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding-inline: 0.5rem;
+    padding-block: 0.25rem;
+    border-radius: 1rem;
+}
+
+.navigation-dots div {
+    height: 0.75rem;
+    width: 0.75rem;
+    border-radius: 3rem;
+    background-color: rgb(220, 220, 220);
+}
+
+.navigation-dots .active {
+    background-color: #a28dcf;
+    border: 1px solid #e2d5f1;
+    transition: all 500ms ease-in-out;
+}

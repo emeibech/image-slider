@@ -1,3 +1,4 @@
+import { colorDot } from './sliderNavigation';
 import imageSource0 from '../images/img0.jpg';
 import imageSource1 from '../images/img1.jpg';
 import imageSource2 from '../images/img2.jpg';
@@ -16,6 +17,10 @@ export const imageSlider = (() => {
         imageSource5,
         imageSource6
     ];
+
+    const getImageSourceArray = () => {
+        return imageSource;
+    };
 
     const createImage = (imageNum) => {
         const image = document.createElement('img');
@@ -63,11 +68,13 @@ export const imageSlider = (() => {
                 animateRight();
                 removeImage(currentImage);
                 autoSlider();
+                colorDot();
             } else {
                 renderImage(0);
                 animateRight();
                 removeImage(currentImage);
                 autoSlider();
+                colorDot();
             }
 
         }, 5000);
@@ -75,7 +82,8 @@ export const imageSlider = (() => {
 
     return {
         renderImage,
-        autoSlider
+        autoSlider,
+        getImageSourceArray
     }
 
 })();
