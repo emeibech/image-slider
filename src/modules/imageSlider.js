@@ -17,13 +17,18 @@ export const imageSlider = (() => {
         imageSource6
     ];
 
-    const renderImage = (imageNum) => {
-        const imageContainer = document.querySelector('.image-container');
+    const createImage = (imageNum) => {
         const image = document.createElement('img');
         image.src = imageSource[imageNum];
         image.setAttribute('height', '720px');
         image.setAttribute('width', '1280px');
         image.setAttribute('data-image', `${imageNum}`);
+        return image;
+    }
+
+    const renderImage = (imageNum) => {
+        const imageContainer = document.querySelector('.image-container');
+        const image = createImage(imageNum);
         imageContainer.appendChild(image);
     }
 
