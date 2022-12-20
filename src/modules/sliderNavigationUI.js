@@ -2,7 +2,7 @@ import leftArrowSource from '../images/navigation/arrow-left.svg';
 import rightArrowSource from '../images/navigation/arrow-right.svg';
 import { imageSlider } from './imageSlider';
 
-const navigationArrows = () => {
+const arrowsUI = () => {
     const imageSlider = document.querySelector('.image-slider');
     const leftArrowContainer = document.createElement('div');
     const rightArrowContainer = document.createElement('div');
@@ -17,7 +17,7 @@ const navigationArrows = () => {
     imageSlider.append(leftArrowContainer, rightArrowContainer);
 }
 
-const navigationDots = () => {
+const dotsUI = () => {
     const slider = document.querySelector('.image-slider');
     const rightArrow = document.querySelector('.right-arrow');
     const dotsContainer = document.createElement('div');
@@ -41,12 +41,11 @@ const colorDot = () => {
         if (item.getAttribute('data-dot') === imageNum) {
             item.classList.add('active');
         }
-    })
-    console.log(imageNum)
+    });
 }
 
 export { 
-    navigationArrows,
-    navigationDots,
+    arrowsUI,
+    dotsUI,
     colorDot
 }

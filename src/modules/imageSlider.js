@@ -1,4 +1,4 @@
-import { colorDot } from './sliderNavigation';
+import { colorDot } from './sliderNavigationUI';
 import imageSource0 from '../images/img0.jpg';
 import imageSource1 from '../images/img1.jpg';
 import imageSource2 from '../images/img2.jpg';
@@ -31,47 +31,68 @@ export const imageSlider = (() => {
         return image;
     }
 
-    const renderImage = (imageNum) => {
+    const renderImageRight = (imageNum) => {
         const imageContainer = document.querySelector('.image-container');
+
+        /** This ensures there is only one image in the container before rendering a new one,
+         *  which happens when a user clicks the dots faster than the animation duration.
+         *  The slider animation fails when there are more than one images. */
+        if (imageContainer.childElementCount > 1) {
+            imageContainer.removeChild(imageContainer.lastChild);
+        }
+
         const image = createImage(imageNum);
+        imageContainer.appendChild(image);
+    }
+
+    const renderImageLeft = (imageNum) => {
+        const imageContainer = document.querySelector('.image-container');
+
+        if (imageContainer.childElementCount > 1) {
+            imageContainer.removeChild(imageContainer.lastChild);
+        }
+
+        const image = createImage(imageNum);
+        image.classList.add('img-left');
         imageContainer.appendChild(image);
     }
 
     const removeImage = (image) => {
         setTimeout(() => {
             const imageContainer = document.querySelector('.image-container');
-            image.nextElementSibling.style.transition = 'none';
-            image.nextElementSibling.style.translate = '0%';
+            image.nextElementSibling.setAttribute('data-revert-transition', 'true');
             imageContainer.removeChild(image);
-        }, 550);
+        }, 250);
+
     }
 
-    const animateRight = () => {
+    const slide = () => {
         setTimeout(() => {
             const image = document.querySelector('.image-container > img:last-child');
-            image.classList.add('animate-right');
-        }, 50);
+            image.classList.add('slide');
+        }, 0);
     }
 
     const autoSlider = () => {
+        
         setTimeout(() => {
             const currentImage = document.querySelector('.image-container > img');
 
             // Get data-image attribute value of currentImage and convert it to a number type
             const imageNum = Number(currentImage.getAttribute('data-image'));
 
-            // This logic makes it so once the slider has rendered and animated
-            //  all the image from imageSource array it will render the first image again
+            /** This logic makes it so once the slider has rendered and animated
+             *  all the image from imageSource array it will render the first image again */
             if (imageNum < imageSource.length - 1) {
                 // Renders new image, animate it, remove previous image, and call autoslider again
-                renderImage(imageNum + 1);
-                animateRight();
+                renderImageRight(imageNum + 1);
+                slide();
                 removeImage(currentImage);
                 autoSlider();
                 colorDot();
             } else {
-                renderImage(0);
-                animateRight();
+                renderImageRight(0);
+                slide();
                 removeImage(currentImage);
                 autoSlider();
                 colorDot();
@@ -80,10 +101,43 @@ export const imageSlider = (() => {
         }, 5000);
     }
 
+    const dotSlider = () => {
+        document.querySelector('.navigation-dots').addEventListener('click', (element) => {
+            // Makes it so the function stops unless the user clicks on one of the dots
+            if (!element.target.matches('[data-dot]')) {
+                return
+            }
+
+            const currentImage = document.querySelector('.image-container > img');
+            const imageNum = Number(currentImage.getAttribute('data-image'));
+            const dotNum = Number(element.target.getAttribute('data-dot'));
+
+            // Don't do anything when user clicks on the current active dot
+            if (dotNum === imageNum) {
+                return
+            }
+
+            if (dotNum > imageNum) {
+                renderImageRight(dotNum);
+                slide();
+                removeImage(currentImage);
+                colorDot();
+            }
+
+            if (dotNum < imageNum) {
+                renderImageLeft(dotNum);
+                slide();
+                removeImage(currentImage);
+                colorDot();
+            }
+        });
+    }
+
     return {
-        renderImage,
+        renderImageRight,
         autoSlider,
-        getImageSourceArray
+        getImageSourceArray,
+        dotSlider
     }
 
 })();

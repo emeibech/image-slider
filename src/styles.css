@@ -51,23 +51,26 @@
 
 .image-container > img {
     translate: 0%;
-    transition: translate 500ms ease-in-out;
+    transition: translate 250ms ease-out;
 }
 
-.image-container .animate-right {
+.image-container .img-left {
+    translate: -200%;
+    transition: translate 250ms ease-out;
+}
+
+.image-container .slide {
     translate: -100%;
 }
 
 .navigation-dots {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.3);
     z-index: 1;
     align-self: end;
     display: flex;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding-inline: 0.5rem;
-    padding-block: 0.25rem;
-    border-radius: 1rem;
+    border-radius: 3rem;
+    gap: 0.25rem;
+    padding: 0.25rem;
 }
 
 .navigation-dots div {
@@ -75,10 +78,20 @@
     width: 0.75rem;
     border-radius: 3rem;
     background-color: rgb(220, 220, 220);
+    cursor: pointer;
+}
+
+.navigation-dots div:hover {
+    background-color: #76BAE0 ;
 }
 
 .navigation-dots .active {
-    background-color: #a28dcf;
+    background-color: #B8396B;
     border: 1px solid #e2d5f1;
-    transition: all 500ms ease-in-out;
+    transition: 300ms;
+}
+
+.image-container > img[data-revert-transition = 'true'] {
+    translate: 0%;
+    transition: none;
 }

@@ -1,10 +1,13 @@
 import './styles.css';
 import { imageSlider } from "./modules/imageSlider";
-import { navigationArrows, navigationDots } from "./modules/sliderNavigation";
+import { arrowsUI, dotsUI } from "./modules/sliderNavigationUI";
 
 document.addEventListener('DOMContentLoaded', () => {
-    navigationArrows();
-    imageSlider.renderImage(0);
-    imageSlider.autoSlider();
-    navigationDots();
+    imageSlider.renderImageRight(0);
+    // imageSlider.autoSlider();
+    arrowsUI();
+    dotsUI();
+    imageSlider.dotSlider();
 });
+
+imageSlider.getImageSourceArray();
