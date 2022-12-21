@@ -60,8 +60,15 @@ export const imageSlider = (() => {
     const removeImage = (image) => {
         setTimeout(() => {
             const imageContainer = document.querySelector('.image-container');
-            image.nextElementSibling.setAttribute('data-revert-transition', 'true');
-            imageContainer.removeChild(image);
+            
+            if (image.nextElementSibling !== null) {
+                image.nextElementSibling.setAttribute('data-revert-transition', 'true');
+            }
+
+            if (image.parentElement !== null) {
+                imageContainer.removeChild(image);
+            }
+            
         }, 250);
 
     }
