@@ -9,7 +9,9 @@ const arrowsUI = () => {
     const leftArrow = document.createElement('img');
     const rightArrow = document.createElement('img');
     leftArrowContainer.classList.add('left-arrow');
+    leftArrowContainer.setAttribute('data-direction', 'left');
     rightArrowContainer.classList.add('right-arrow');
+    rightArrowContainer.setAttribute('data-direction', 'right');
     leftArrow.src = leftArrowSource;
     rightArrow.src = rightArrowSource;
     leftArrowContainer.appendChild(leftArrow);

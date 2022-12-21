@@ -74,7 +74,6 @@ export const imageSlider = (() => {
     }
 
     const autoSlider = () => {
-        
         setTimeout(() => {
             const currentImage = document.querySelector('.image-container > img');
 
@@ -103,7 +102,7 @@ export const imageSlider = (() => {
 
     const dotSlider = () => {
         document.querySelector('.navigation-dots').addEventListener('click', (element) => {
-            // Makes it so the function stops unless the user clicks on one of the dots
+            // Do nothing if user is not clicking a dot
             if (!element.target.matches('[data-dot]')) {
                 return
             }
@@ -112,11 +111,12 @@ export const imageSlider = (() => {
             const imageNum = Number(currentImage.getAttribute('data-image'));
             const dotNum = Number(element.target.getAttribute('data-dot'));
 
-            // Don't do anything when user clicks on the current active dot
+            // Do nothing when user clicks on the current active dot
             if (dotNum === imageNum) {
                 return
             }
 
+            // Render and slide the image with the corresponding data attribute based on the dot clicked
             if (dotNum > imageNum) {
                 renderImageRight(dotNum);
                 slide();
@@ -133,11 +133,59 @@ export const imageSlider = (() => {
         });
     }
 
+    const arrowSlider = () => {
+        document.querySelector('.image-slider').addEventListener('click', (element) => {
+            // Do nothing if the target is not an arrow
+            if (
+              !element.target.closest('[data-direction = "left"]')
+              && !element.target.closest('[data-direction = "right"]')
+            ) {
+                return
+            }
+
+            const currentImage = document.querySelector('.image-container > img');
+            const imageNum = Number(currentImage.getAttribute('data-image'));
+
+            if (element.target.closest('[data-direction = "left"]')) {
+                /** If left arrow is clicked while the first image is being displayed,
+                 * the slider will render the last image in the imageSource array. */ 
+                if (imageNum === 0) {
+                    renderImageLeft(imageNum + (imageSource.length - 1));
+                    slide();
+                    removeImage(currentImage);
+                    colorDot();
+                } else {
+                    // Otherwise, it will decrement the imageNum to display the previous image.
+                    renderImageLeft(imageNum - 1);
+                    slide();
+                    removeImage(currentImage);
+                    colorDot();
+                }
+            }
+
+            // Similar to the one above but for right arrow
+            if (element.target.closest('[data-direction = "right"]')) {
+                if (imageNum === 6) {
+                    renderImageRight(imageNum - (imageSource.length - 1));
+                    slide();
+                    removeImage(currentImage);
+                    colorDot();
+                } else {
+                    renderImageRight(imageNum + 1);
+                    slide();
+                    removeImage(currentImage);
+                    colorDot();
+                }
+            }
+        });
+    }
+
     return {
         renderImageRight,
         autoSlider,
         getImageSourceArray,
-        dotSlider
+        dotSlider,
+        arrowSlider
     }
 
 })();
