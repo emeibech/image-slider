@@ -22,26 +22,30 @@ export const imageSlider = (() => {
         return imageSource;
     };
 
-    const createImage = (imageNum) => {
-        const image = document.createElement('img');
-        image.src = imageSource[imageNum];
-        image.setAttribute('height', '720px');
-        image.setAttribute('width', '1280px');
-        image.setAttribute('data-image', `${imageNum}`);
-        return image;
-    }
+    const imageArray = [];
+
+    const createImages = (() => {
+        imageSource.forEach((item, index) => {
+            const image = document.createElement('img');
+            image.src = item;
+            image.setAttribute('height', '720px');
+            image.setAttribute('width', '1280px');
+            image.setAttribute('data-image',`${index}`);
+            imageArray.push(image);
+        })
+    })();
 
     const renderImageRight = (imageNum) => {
         const imageContainer = document.querySelector('.image-container');
 
         /** This ensures there is only one image in the container before rendering a new one,
          *  which happens when a user clicks the dots faster than the animation duration.
-         *  The slider animation fails when there are more than one images. */
+         *  The slider animation fails when there are more than one images in the .image-container div. */
         if (imageContainer.childElementCount > 1) {
             imageContainer.removeChild(imageContainer.lastChild);
         }
 
-        const image = createImage(imageNum);
+        const image = imageArray[imageNum];
         imageContainer.appendChild(image);
     }
 
@@ -52,7 +56,7 @@ export const imageSlider = (() => {
             imageContainer.removeChild(imageContainer.lastChild);
         }
 
-        const image = createImage(imageNum);
+        const image = imageArray[imageNum];
         image.classList.add('img-left');
         imageContainer.appendChild(image);
     }
@@ -60,12 +64,14 @@ export const imageSlider = (() => {
     const removeImage = (image) => {
         setTimeout(() => {
             const imageContainer = document.querySelector('.image-container');
-            
+
             if (image.nextElementSibling !== null) {
                 image.nextElementSibling.setAttribute('data-revert-transition', 'true');
             }
 
             if (image.parentElement !== null) {
+                image.classList.remove('img-left', 'slide');
+                image.setAttribute('data-revert-transition', '');
                 imageContainer.removeChild(image);
             }
             
@@ -155,7 +161,7 @@ export const imageSlider = (() => {
 
             if (element.target.closest('[data-direction = "left"]')) {
                 /** If left arrow is clicked while the first image is being displayed,
-                 * the slider will render the last image in the imageSource array. */ 
+                 * the slider will render the last image in the imageArray. */ 
                 if (imageNum === 0) {
                     renderImageLeft(imageNum + (imageSource.length - 1));
                     slide();
